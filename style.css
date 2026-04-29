@@ -1,33 +1,163 @@
+/* 폰트 설정 (귀여운 폰트가 없다면 기본 둥근 서체로 대체) */
+@font-face {
+    font-family: 'GonyFont';
+    src: url('https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap');
+}
+
 :root {
     --main-pink: #ffc0cb;
-    --soft-white: rgba(255, 255, 255, 0.8);
+    --dark-pink: #ff69b4;
+    --soft-white: rgba(255, 255, 255, 0.9);
 }
 
-body { margin: 0; font-family: '둥근모꼴', 'CookieRun', sans-serif; overflow: hidden; }
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Gaegu', 'Nanum Gothic', sans-serif;
+    overflow: hidden;
+}
 
-/* 설정 화면 */
+/* [1] 설정 화면 (대시보드) */
 #setup-screen {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    height: 100vh; background: var(--main-pink);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: var(--main-pink);
+    background-image: radial-gradient(white 1px, transparent 1px);
+    background-size: 20px 20px; /* 배경 도트 무늬 */
 }
 
-/* 디톡스 오버레이 */
+.main-logo {
+    width: 180px;
+    height: auto;
+    margin-bottom: 30px;
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
+    animation: heartbeat 1.5s infinite ease-in-out;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.input-group {
+    background: var(--soft-white);
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input-group label {
+    color: var(--dark-pink);
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.input-group input {
+    border: 2px solid var(--main-pink);
+    border-radius: 10px;
+    padding: 8px;
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--dark-pink);
+    outline: none;
+}
+
+#start-btn {
+    margin-top: 25px;
+    padding: 12px 30px;
+    background-color: var(--dark-pink);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+}
+
+#start-btn:hover {
+    transform: translateY(-3px);
+    background-color: #ff1493;
+}
+
+/* [2] 디톡스 오버레이 (강제 화면) */
 #detox-overlay {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    z-index: 9999; display: flex; align-items: center; justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
 }
 
 .pink-filter {
-    position: absolute; width: 100%; height: 100%;
-    background: radial-gradient(circle, rgba(255,192,203,0.7) 0%, rgba(255,255,255,0.4) 100%);
-    backdrop-filter: blur(5px); /* 뽀샤시 효과 */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* 뽀샤시한 핑크 그라데이션 필터 */
+    background: linear-gradient(135deg, rgba(255,192,203,0.8) 0%, rgba(255,255,255,0.6) 50%, rgba(255,182,193,0.8) 100%);
+    backdrop-filter: blur(8px); /* 주변 화면 흐리게 처리 */
 }
 
-.content { position: relative; text-align: center; color: #ff69b4; text-shadow: 2px 2px white; }
+.content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+}
 
-.gony-container { position: relative; width: 400px; height: 400px; margin: 20px auto; }
-#gony-img { width: 100%; transition: transform 0.1s; }
+/* 타자기 텍스트 스타일 */
+.typewriter {
+    font-size: 2.2rem;
+    color: #db2777;
+    text-shadow: 3px 3px 0px white;
+    margin: 20px 0;
+    min-height: 1.2em; /* 텍스트가 없을 때도 높이 유지 */
+}
 
-canvas { position: absolute; top: 0; left: 0; pointer-events: none; }
+.gony-container {
+    position: relative;
+    width: 450px;
+    height: 450px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-.hidden { display: none !important; }
+#gony-img {
+    max-width: 100%;
+    max-height: 100%;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.9));
+}
+
+#heart-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* 유틸리티 클래스 */
+.hidden {
+    display: none !important;
+}
+
+.fade-out {
+    opacity: 0 !important;
+}
