@@ -1,0 +1,33 @@
+:root {
+    --main-pink: #ffc0cb;
+    --soft-white: rgba(255, 255, 255, 0.8);
+}
+
+body { margin: 0; font-family: '둥근모꼴', 'CookieRun', sans-serif; overflow: hidden; }
+
+/* 설정 화면 */
+#setup-screen {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    height: 100vh; background: var(--main-pink);
+}
+
+/* 디톡스 오버레이 */
+#detox-overlay {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: 9999; display: flex; align-items: center; justify-content: center;
+}
+
+.pink-filter {
+    position: absolute; width: 100%; height: 100%;
+    background: radial-gradient(circle, rgba(255,192,203,0.7) 0%, rgba(255,255,255,0.4) 100%);
+    backdrop-filter: blur(5px); /* 뽀샤시 효과 */
+}
+
+.content { position: relative; text-align: center; color: #ff69b4; text-shadow: 2px 2px white; }
+
+.gony-container { position: relative; width: 400px; height: 400px; margin: 20px auto; }
+#gony-img { width: 100%; transition: transform 0.1s; }
+
+canvas { position: absolute; top: 0; left: 0; pointer-events: none; }
+
+.hidden { display: none !important; }
